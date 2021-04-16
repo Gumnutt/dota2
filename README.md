@@ -1,4 +1,4 @@
-# dota-heroes
+# dota-vue
 
 ## Project setup
 ```
