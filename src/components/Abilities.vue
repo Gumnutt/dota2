@@ -2,35 +2,45 @@
   <div class="abilities--list">
     <p class="abilities--title">Abilities</p>
     <div class="abilities--container" :style="'grid-template-columns: repeat('+ability_count+', 1fr);'">
-      <div v-for="ability in abilities" :key="ability.name_loc" class="ability">
-        <img class="ability--icon" :src="'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/' + ability.name + '.png'" />
-        <div class="ability--tooltip">
-          <div class="tooltip--body">
-            <video class="tooltip--video" :poster="'https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/'+hero_name+'/' + ability.name + '.jpg'" autoplay="" preload="auto" loop="" playsinline="" muted>
-              <source type="video/webm" :src="'https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/'+hero_name+'/' + ability.name + '.webm'">
-              <source type="video/mp4" :src="'https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/'+hero_name+'/' + ability.name + '.mp4'">
-            </video>
-            <div class="tooltip--text">
-              <h3 class="tooltip--title">{{ ability.name_loc }}</h3>
-              <p class="tooltip--title">{{ ability.desc_loc }}</p>
+      <div v-for="ability in basicAbilities" :key="ability.name_loc" :v-if="!ability.ability_is_granted_by_shard" class="ability">
+          <img class="ability--icon" :src="'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/' + ability.name + '.png'"/>
+          <div class="ability--tooltip">
+            <div class="tooltip--body">
+              <video class="tooltip--video" :poster="'https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/'+hero_name+'/' + ability.name + '.jpg'" autoplay="" preload="auto" loop="" playsinline="" muted>
+                <source type="video/webm" :src="'https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/'+hero_name+'/' + ability.name + '.webm'">
+                <source type="video/mp4" :src="'https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/'+hero_name+'/' + ability.name + '.mp4'">
+              </video>
+              <div class="tooltip--text">
+                <h3 class="tooltip--title">{{ ability.name_loc }}</h3>
+                <p class="tooltip--title">{{ ability.desc_loc }}</p>
+              </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
   export default {
+    data(){
+      return{
+        hero_abilities: this.abilities
+      }
+    },
     props:{
       abilities: Array,
       ability_count: Number,
       hero_name: String
     },
+    computed:{
+      basicAbilities() {
+        return this.hero_abilities.filter(hero_ability => !hero_ability.ability_is_granted_by_shard && !hero_ability.ability_is_granted_by_scepter)
+      }
+    }
   }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
   .abilities--list{
     width: fit-content;
   }

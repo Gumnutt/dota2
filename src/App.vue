@@ -34,4 +34,7 @@ export default {
     font-weight: 400;
     margin: 0;
   }
+  *{
+    box-sizing: border-box;
+  }
 </style>

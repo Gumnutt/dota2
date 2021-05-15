@@ -14,6 +14,7 @@
             <h1 class="hero--name">{{ hero.name }}</h1>
             <h3 class="hero--one-liner">{{ hero.hero_desc }}</h3>
             <p class="hero--short-desc" v-html="hero.bio_short"></p>
+            
             <div class="hero--attk-type">
               <p class="hero--attk-type-label">Attack type</p>
               <p class="hero--attk-type-value">{{ attk_type }}</p>
@@ -70,7 +71,7 @@
               <Icon :source="image.atk_time" w="24px" h="24px"></Icon>
               {{ Math.round(hero.stats.attack.rate* 10) / 10 }}
             </div>
-            <div class="stat">
+            <div class="stat" v-if="hero.stats.attack.range > 0">
               <Icon :source="image.range" w="24px" h="24px"></Icon>
               {{ hero.stats.attack.range }}
             </div>
@@ -104,7 +105,10 @@
             </div>
           </div>
         </div>
+      </div>
 
+      <div class="abilities--container">
+        <AbilitiesDetail :abilities="hero.abilities" :ability_count="hero.abilities.length" :hero_name="hero.machine_name.replace('npc_dota_hero_','')"></AbilitiesDetail>
       </div>
     </div>
   </div>
@@ -114,12 +118,14 @@
 import { db } from '../firebaseDatabase'
 
 import Abilities from '../components/Abilities'
+import AbilitiesDetail from '../components/AbilitiesDetail'
 import Progress from '../components/Progress'
 import Icon from '../components/Icon'
 
 export default {
   components: { 
     Abilities,
+    AbilitiesDetail,
     Progress,
     Icon,
   },
@@ -147,65 +153,11 @@ export default {
     })
   },
   computed:{
-    primary_attr(){
-      let attr = ''
-      switch(this.hero.attributes.primary_attr){
-        case 0:{
-          attr = 'Strength'
-          return attr
-        }
-        case 1:{
-          attr = 'Agility'
-          return attr
-        }
-        case 2:{
-          attr = 'Intelligence'
-          return attr
-        }
-        default:{
-          attr = ''
-          return attr
-        }
-      }
-    },
-    short_attr(){
-      let attr_abbrv = ''
-      switch(this.hero.attributes.primary_attr){
-        case 0:{
-          attr_abbrv = 'str'
-          return attr_abbrv
-        }
-        case 1:{
-          attr_abbrv = 'agi'
-          return attr_abbrv
-        }
-        case 2:{
-          attr_abbrv = 'int'
-          return attr_abbrv
-        }
-        default:{
-          attr_abbrv = ''
-          return attr_abbrv
-        }
-      }
-    },
-    attk_type(){
-      let type = ''
-      switch(this.hero.attack_type){
-        case 1:{
-          type = 'Melee'
-          return type
-        }
-        case 2:{
-          type = 'Ranged'
-          return type
-        }
-        default:{
-          type = ''
-          return type
-        }
-      }
-    },
+    primary_attr(){return["Strength", "Agility", "Intelligence"][this.hero.attributes.primary_attr]??""},
+
+    short_attr(){return["str","agi","int"][this.hero.attributes.primary_attr]??""},
+      
+    attk_type(){return["Melee", "Ranged"][this.hero.attack_type]??""},
   }
 }
 </script>
@@ -349,5 +301,11 @@ export default {
         margin-right: 0.5rem;
       }
     }
+  }
+
+  .abilities--container{
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
   }
 </style>
