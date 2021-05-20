@@ -96,10 +96,9 @@ export default {
       this.$nextTick(() => {
         let imageUrl = this.teamLogo;
         let image = new Image(360, 360)
-        //let googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
+        let googleProxyURL = 'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=2592000&url=';
         image.crossOrigin = 'Anonymous';
-        image.src = 'http://alloworigin.com/get?url='+imageUrl;
-        consola.info(image)
+        image.src = googleProxyURL + encodeURIComponent(imageUrl);
         image.onload = () => {
           var colorThief = new ColorThief();          
           var color = colorThief.getColor(image);
