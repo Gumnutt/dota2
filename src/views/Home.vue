@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h3 v-if="loading">LOADING PAGE</h3>
-    <h1>Dota 2</h1>  
+    <h3 v-if="loading">LOADING PAGE</h3> 
     <div class="hero-grid">
       <div v-for="hero in heroes" :key="hero.name">
         <router-link :to="{ name: 'HeroDetail', params: {id: hero.id}}">
@@ -39,7 +38,7 @@ export default {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
     grid-gap: 1rem;
-    width: 750px;
+    width: 100%;
     margin:0 auto;
     @media (min-width: 1000px){
       width: 950px;
