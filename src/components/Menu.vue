@@ -140,10 +140,12 @@ nav{
   height: 100vh;
   padding: 2rem;
   background: #191e24;
-  transform: translateX(100%);
+  transform: translateX(110%);
   transition: transform 300ms ease-in;
+  z-index: 999999;
   @media(min-width: 720px){
-    width: auto;
+    flex-direction: row;
+    width: 100%;
     display: block;
     position: relative;
     top: unset;
@@ -151,6 +153,8 @@ nav{
     right: unset;
     height: 100%;
     transform: translateX(0);
+    z-index: 1;
+    background: none;
   }
   &.menu-open{
     transform: translateX(0);

@@ -81,8 +81,10 @@
   .ability--container{
     display: flex;
     flex-direction: column;
-    @media(min-width: 900px){
+    flex-wrap: wrap;
+    @media(min-width: 720px){
       flex-direction: row;
+      flex-wrap: nowrap;
     }
   }
   .ability--container-left{

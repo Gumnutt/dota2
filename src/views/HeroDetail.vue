@@ -90,7 +90,7 @@
               {{ Math.round(hero.stats.defense.magic_resistance* 10) / 10 }}
             </div>
           </div>
-          <div class="stats--mobilty">
+          <div class="stats--mobility">
             <div class="stat">
               <Icon :source="image.move_speed" w="24px" h="24px"></Icon>
               {{ hero.stats.mobility.movement_speed }}
@@ -157,7 +157,13 @@ export default {
 
     short_attr(){return["str","agi","int"][this.hero.attributes.primary_attr]??""},
       
-    attk_type(){return["Melee", "Ranged"][this.hero.attack_type]??""},
+    attk_type(){
+      if(this.hero.attack_type === 1){
+        return 'Melee'
+      }else{
+        return 'Ranged'
+      }
+    },
   }
 }
 </script>
@@ -168,12 +174,15 @@ export default {
   .hero--starter{
     display: flex;
     align-items: center;
-    height: 85vh;
     min-height: 600px;
-    padding: 40px 100px 0px 140px;
+    padding: 2rem;
     overflow: hidden;
     position: relative;
     background-image: linear-gradient(0deg, #101415, transparent);
+    @media(min-width: 720px){
+      padding: 40px 100px 0px 140px;
+      height: 85vh;
+    }
   }
   .hero--summary{
     max-width: 62ch;
@@ -182,7 +191,7 @@ export default {
     position: relative;
     display: flex;
     align-items: center;
-    padding-top: 2.5rem;
+    padding-top: 5rem;
     padding-bottom: 2.5rem;
     &:before, &:after{
       content: '';
@@ -207,8 +216,13 @@ export default {
     position: absolute;
     right: 0;
     z-index: -1;
+    transform: translateX(30%);
+    @media(min-width:720px){
+      transform: translateX(0);
+    }
   }
   .hero--primary-info{
+    width:100%;
     .hero--name{
       margin-top: 0;
       font-weight: 700;
@@ -219,12 +233,19 @@ export default {
     margin-top: 2rem;
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+    @media(min-width:720px){
+      flex-wrap: nowrap;
+    }
   }
   .hero--attributes{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    width: 30%;
+    width: 100%;
+    @media(min-width:720px){
+      width: 30%;
+    }
     .hero--portrait{
       width: 150px;
       img{
@@ -283,13 +304,21 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    width: 400px;
+    width: 100%;
     padding: 0px 20px;
+    @media(min-width:720px){
+      width: 400px;
+    }
   }
   .hero--stats{
     display: flex;
     justify-content: space-evenly;
-    width: 30%;
+    flex-wrap: wrap;
+    width: 100%;
+    @media(min-width:720px){
+      flex-wrap: nowrap;
+      width: 30%;
+    }
     .stat{
       display: flex;
       flex-direction: row;

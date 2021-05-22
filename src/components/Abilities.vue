@@ -1,7 +1,7 @@
 <template>
   <div class="abilities--list">
     <p class="abilities--title">Abilities</p>
-    <div class="abilities--container" :style="'grid-template-columns: repeat('+ability_count+', 1fr);'">
+    <div class="abilities--container">
       <div v-for="ability in basicAbilities" :key="ability.name_loc" :v-if="!ability.ability_is_granted_by_shard" class="ability">
           <img class="ability--icon" :src="'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/' + ability.name + '.png'"/>
           <div class="ability--tooltip">
@@ -52,6 +52,10 @@
   }
   .abilities--container{
     display: flex;
+    flex-wrap: wrap;
+    @media(min-width: 720px){
+      flex-wrap: nowrap;
+    }
     .ability{
       margin: 0 0.5rem;
       position: relative;

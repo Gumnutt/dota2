@@ -26,6 +26,12 @@ export default {
     margin: 0 auto;
     padding: 2rem 0;
     color: white;
+    position: absolute;
+      left: 0;
+      right: 0;
+    @media(min-width: 720px){
+      
+    }
     @media(min-width:1500px){
       max-width: 1500px;
     }
